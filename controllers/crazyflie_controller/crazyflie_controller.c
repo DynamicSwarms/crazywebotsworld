@@ -1,32 +1,3 @@
-/*
- * Copyright 2022 Bitcraze AB
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/*
- *  ...........       ____  _ __
- *  |  ,-^-,  |      / __ )(_) /_______________ _____  ___
- *  | (  O  ) |     / __  / / __/ ___/ ___/ __ `/_  / / _ \
- *  | / ,..´  |    / /_/ / / /_/ /__/ /  / /_/ / / /_/  __/
- *     +.......   /_____/_/\__/\___/_/   \__,_/ /___/\___/
- *
- *
- * @file crazyflie_controller.c
- * Description: Controls the crazyflie in webots
- * Author:      Kimberly McGuire (Bitcraze AB)
- */
-
 #include <math.h>
 #include <stdio.h>
 
@@ -68,7 +39,19 @@ int main(int argc, char **argv) {
   WbFieldRef zrange_field = wb_supervisor_node_get_field(this_node, "zrange");
   WbFieldRef rotation_field = wb_supervisor_node_get_field(this_node, "rotation");
 
+
+  double Kp = 1.0; // Proportional gain
+  double Ki = 0.05; // Integral gain
+  
+  // Initialize error accumulators
+double forward_integral = 0.0;
+double sideways_integral = 0.0;
+double up_integral = 0.0;
+
+double past_time = wb_robot_get_time();
+
   while (wb_robot_step(timestep) != -1) {
+    const double dt = wb_robot_get_time() - past_time;
     // Get measurements
     double x_global = wb_gps_get_values(gps)[0];
     double y_global = wb_gps_get_values(gps)[1];
@@ -81,12 +64,26 @@ int main(int argc, char **argv) {
     double target_z = target[2];
     
     // Most basic P-Controller for velocity (p=1)
-    double forward_desired = target_x - x_global;
-    double sideways_desired = target_y - y_global;
-    double up_desired = target_z - z_global;
+    double forward_error = target_x - x_global;
+    double sideways_error = target_y - y_global;
+    double up_error = target_z - z_global;
+    
+    forward_integral += forward_error * dt;
+    sideways_integral += sideways_error * dt;
+    up_integral += up_error * dt;
+    
+    
     
     // Avoid going lower than the floor
-    if (z_global < 0.04 && up_desired < 0) up_desired = 0;   
+    if (z_global < 0.04 && up_error < 0) {
+       up_error = 0;   
+       up_integral = 0; // Avoid windup due to boundry condition
+    }
+    
+    // Calculate PI controller output
+    double forward_desired = Kp * forward_error + Ki * forward_integral;
+    double sideways_desired = Kp * sideways_error + Ki * sideways_integral;
+    double up_desired = Kp * up_error + Ki * up_integral;
     
     const double vel[6] = {forward_desired, sideways_desired, up_desired, 0, 0,0};
     wb_supervisor_node_set_velocity(this_node, vel);
@@ -104,6 +101,7 @@ int main(int argc, char **argv) {
     // Publish zranger values
     double z_range_value = wb_distance_sensor_get_value(range);
     wb_supervisor_field_set_sf_float(zrange_field, z_range_value);
+    past_time = wb_robot_get_time();
   };
 
   wb_robot_cleanup();
