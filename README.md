@@ -1,4 +1,9 @@
-# Webots Installation und Setup-Anleitung 
+# The Webots world for dynamic swarms crazyflie
+
+To be used in combination with [Crazyflie Webots](https://github.com/DynamicSwarms/crazyflie_webots).
+
+Or can be used standalone. Then extern controller can be connected. 
+
 ## 1. Webots Installation
 
 Lade den Webots-Installer herunter und folge den Installationsanweisungen:  
