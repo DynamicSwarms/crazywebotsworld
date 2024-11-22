@@ -92,7 +92,7 @@ double past_time = wb_robot_get_time();
     
     // Setting motorspeed for nicer visuals
     int motor_speed = 48;
-    if (z_global < 0.1) motor_speed = 0;
+    if (target_z < 0.1) motor_speed = 0;
     wb_motor_set_velocity(m1_motor, -motor_speed);
     wb_motor_set_velocity(m2_motor, motor_speed);
     wb_motor_set_velocity(m3_motor, -motor_speed);
