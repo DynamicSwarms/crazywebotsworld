@@ -75,9 +75,10 @@ double past_time = wb_robot_get_time();
         
     
     // Avoid going lower than the floor
-    //if (z_global < 0.1 && up_error < -z_global) up_error = 0;
-    if (z_global < 0.025 && target_z <= 0.025) up_integral = 0; // Avoid windup due to boundry condition
-    
+    if (z_global < 0.025 && target_z <= 0.025) {
+     up_error = 0;
+     up_integral = 0; // Avoid windup due to boundry condition
+    }
     
     // Calculate PI controller output
     double forward_desired = Kp * forward_error + Ki * forward_integral;
@@ -91,7 +92,7 @@ double past_time = wb_robot_get_time();
     
     // Setting motorspeed for nicer visuals
     int motor_speed = 48;
-    if (target_z < 0.025 && up_error < 0) motor_speed = 0;
+    if (target_z < 0.025 && up_error <= 0) motor_speed = 0;
     // Shut up motors if on the ground
     wb_motor_set_velocity(m1_motor, -motor_speed);
     wb_motor_set_velocity(m2_motor, motor_speed);
