@@ -5,9 +5,9 @@
 # The "Crazyflie" is a robot developed by "Bitcraze": https://bitcraze.io
 
 PROTO Crazyflie [
+  field SFInt32    id     0
   field SFVec3f    translation     0 0 0.015   
   field SFRotation rotation        0 0 1 0     
-  field SFString   name            "Crazyflie" 
 ]
 {
   Robot {
@@ -16,7 +16,7 @@ PROTO Crazyflie [
     controller "<extern>"
     supervisor TRUE
     synchronization FALSE
-    name IS name
+    name %<= '"' + 'cf' + fields.id.value + '"' >%
     model "Bitcraze's Crazyflie"
     children [
       PointLight {
