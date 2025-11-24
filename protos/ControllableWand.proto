@@ -2,30 +2,23 @@
 EXTERNPROTO "../protos/Wand.proto"
 
 PROTO ControllableWand [
-    field SFInt32  wand_id    0
-    field SFString name "wand"
-    field SFVec3f  translation 0 0 0
-    field SFRotation rotation 0 0 1 0
+    field SFInt32       wand_id     0
+    field SFVec3f       translation 0 0 0
+    field SFRotation    rotation    0 0 1 0
 ]
 {
     Robot {
-        name %{= '"' .. "Wand0" .. fields.wand_id.value .. '"' }%
+        name %<= '"' + 'Wand' + fields.wand_id.value + '"' >%
         translation IS translation
         rotation IS rotation
+        controller "<extern>" 
         supervisor TRUE
-        controller "wand_ctrl_controller"
+        synchronization FALSE
         children [
             Wand {
-                name %{= '"' .. "Wand0" .. fields.wand_id.value .. '"'}%
+                name %<= '"' + '_wand_body' + fields.wand_id.value + '"' >%
                 translation 0 0 0 
                 rotation  0 0 1 0
-            }
-            Robot {
-                supervisor TRUE
-                synchronization FALSE
-                name %{= '"' .. "Wand0" .. fields.wand_id.value .. "_ros_ctrl" .. '"' }%
-                controller "<extern>"
-                controllerArgs [ %{= '"--name=' .. "wb_Wand0" .. fields.wand_id.value .. '"' }% ]
             }
         ]
     }

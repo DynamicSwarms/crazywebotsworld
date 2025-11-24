@@ -6,15 +6,15 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/project
 
 PROTO HalleTraversen [
   field SFVec3f translation 0 0 0
-  field SFRotation rotation 0 0 1 0
-  field SFString name "solid"
 ]
 {
  Solid {
+  name "Traversen"
   translation IS translation
   children [
     ## Senkrechte
     Solid {
+      name "Traverse6m"
       translation 8 3 3
       children [
         DEF Traverse6mSenkrecht Shape  {
@@ -27,35 +27,43 @@ PROTO HalleTraversen [
       ]
     }
     Solid {
+      name "Traverse6mA"
       translation 8 -3 3
       children [USE Traverse6mSenkrecht]
     }
     Solid {
+      name "Traverse6mB"
       translation 3 -3 3
       children [USE Traverse6mSenkrecht]
     }
     Solid {
+      name "Traverse6mC"
       translation 3 3 3
       children [USE Traverse6mSenkrecht]
     }
     Solid {
+      name "Traverse6mD"
       translation -2 -3 3
       children [USE Traverse6mSenkrecht]
     }
     Solid {
+      name "Traverse6mE"
       translation -2 3 3
       children [USE Traverse6mSenkrecht]
     }
     Solid {
+      name "Traverse6mF"
       translation -7 3 3
       children [USE Traverse6mSenkrecht]
     }
     Solid {
+      name "Traverse6mG"
       translation -7 -3 3
       children [USE Traverse6mSenkrecht]
     }
     ##Querstreben
     Solid {
+      name "TraverseQuer"
       translation 8 0  6
       children [
         DEF Traverse6mQueer Shape  {
@@ -68,19 +76,23 @@ PROTO HalleTraversen [
       ]
     }
     Solid {
+      name "TraverseQuerA"
       translation 3 0 6
       children [USE Traverse6mQueer]
     }
     Solid {
+      name "TraverseQuerB"
       translation -2 0 6
       children [USE Traverse6mQueer]
     }
     Solid {
+      name "TraverseQuerC"
       translation -7 0 6
       children [USE Traverse6mQueer]
     }
     ##Laengsstreben
     Solid {
+      name "TraverseLaengs"
       translation -4 3 6
       children [
         DEF Traverse6mLaengs Shape  {
@@ -93,27 +105,33 @@ PROTO HalleTraversen [
       ]
     }
     Solid {
+      name "TraverseLaengsA"
       translation 0 3 6
       children [USE Traverse6mLaengs]
     }
     Solid {
+      name "TraverseLaengsB"
       translation 5 3 6
       children [USE Traverse6mLaengs]
     }
     Solid {
+      name "TraverseLaengsC"
       translation -4 -3 6
       children [USE Traverse6mLaengs]
     }
     Solid {
+      name "TraverseLaengsD"
       translation 0 -3 6
       children [USE Traverse6mLaengs]
     }
     Solid {
+      name "TraverseLaengsE"
       translation 5 -3 6
       children [USE Traverse6mLaengs]
     }
     ### Netze
     Solid {
+      name "Netz"
       translation -2 3 3
       children [
         DEF MeshLarge Shape  {
@@ -129,11 +147,13 @@ PROTO HalleTraversen [
       ]
     }
     Solid {
+      name "NetzA"
       translation -2 -3 3
       children [USE MeshLarge]
     }
 
     Solid {
+      name "NetzLang"
       translation -7 0 3
       children [
         Shape  {
