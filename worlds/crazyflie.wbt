@@ -28,7 +28,7 @@ Viewpoint {
   follow "Crazyflie"
 }
 TexturedBackground {
-    texture "noon_cloudy_mountains"
+    texture "noon_cloudy_countryside"
 }
 TexturedBackgroundLight {
   castShadows FALSE
@@ -51,9 +51,8 @@ HalleTraversen {
 }
 
 Crazyflie {
-  name "cf0"
+  id 0
   translation 0 0 0.15
-  target 0 0 0.15
 }
 
 

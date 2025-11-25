@@ -4,15 +4,15 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/project
 
 PROTO Halle [
   field SFVec3f translation 0 0 0
-  field SFRotation rotation 0 0 1 0
-  field SFString name "solid"
 ]
 {
  Solid {
   translation IS translation
+  name "Halle"
   children [
     ## WandLang
     Solid {
+      name "WandLang"
       translation -10 15 5
       children [
         DEF WandLang Shape  {
@@ -25,11 +25,13 @@ PROTO Halle [
       ]
     }
     Solid {
+        name "WandLang_"
         translation 10 15 5
         children [USE WandLang]
     }
      ## WandKurz
     Solid {
+      name "WandKurz"
       translation 0 -5 5
       children [
         DEF WandKurz Shape  {
@@ -42,11 +44,13 @@ PROTO Halle [
       ]
     }
      Solid {
+        name "WandKurz_"
         translation 0 35 5
         children [USE WandKurz]
     }
      ## Decke
     Solid {
+      name "Decke"
       translation 0 15 10
       children [
         DEF Decke Shape  {
@@ -59,6 +63,7 @@ PROTO Halle [
       ]
     }
     Solid {
+        name "Decke_"
         translation 0 15 -0.1
         children [USE Decke]
     }
