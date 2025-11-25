@@ -4,7 +4,7 @@ To be used in combination with [Crazyflie Webots](https://github.com/DynamicSwar
 
 Or can be used standalone. Then extern controller can be connected. 
 
-## 1. Webots Installation
+## 1. Webots Installation (2025a)
 
 Lade den Webots-Installer herunter und folge den Installationsanweisungen:  
 [Webots](https://cyberbotics.com/)
@@ -23,17 +23,6 @@ git clone https://github.com/DynamicSwarms/crazywebotsworld.git
 Die Welt befinet sich in `crazywebotsworld/worlds/crazyflie.wbt`
 
 ❗ Achte darauf beim schließen/verändern der Welt diese nicht abzuspeichern, sodass Crazyflie und Zauberstab immer in Ursprungsposition starten. 
-
-# 4. Controller für Crazyflie und Zauberstab (Wand) bauen
-
-### Crazyflie Controller
-1. Rechtsklick auf die Crazyflie im Scene-Tree und wähle **Edit Controller**.
-2. Klicke auf das Zahnradsymbol über dem Codefenster, um den Controller zu bauen.
-3. Wenn "Reset World?" erscheint, wähle **Reset**.
-
-### Zauberstab Controller (Controllable Wand):
-1. Wiederhole die oben genannten Schritte für den Zauberstab.
-
 
 
 
